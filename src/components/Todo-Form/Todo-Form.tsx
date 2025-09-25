@@ -14,11 +14,11 @@ interface FormData {
   notes: string | number;
 }
 
-// interface TodoFormProps {
-//     onAdd:(data:FormData) => void
-// }
+interface TodoFormProps {
+    onAdd:(data:FormData) => void
+}
 
-const TodoForm: React.FC = () => {
+export default function TodoForm({ onAdd }: TodoFormProps) {
   const [formData, setFormData] = useState<FormData>({
     text: "",
     priority: "low",
@@ -33,6 +33,7 @@ const TodoForm: React.FC = () => {
     e.preventDefault();
     if (formData.text.trim()) {
       setIsAnimating(true);
+      onAdd(formData)
       setFormData({
         text: "",
         priority: "medium",
@@ -173,4 +174,4 @@ const TodoForm: React.FC = () => {
   );
 };
 
-export default TodoForm;
+

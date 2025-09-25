@@ -49,6 +49,7 @@ export function useTodos() {
     ]);
   };
   return {
+    todos,
     addtodo,
   };
 }

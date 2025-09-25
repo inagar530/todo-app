@@ -1,7 +1,9 @@
 import React from "react";
 import TodoForm from "./components/Todo-Form/Todo-Form";
+import { useTodos } from "./hooks/useTodo";
 
 const App: React.FC = () => {
+  const {addtodo} = useTodos()
   return (
     <div className="min-h-screen gradient-bg">
       {/* Header */}
@@ -21,7 +23,7 @@ const App: React.FC = () => {
 
           {/* Main Container */}
           <div className="p-8 shadow-2xl glass-effect rounded-3xl">
-            <TodoForm />
+            <TodoForm onAdd={addtodo} />
           </div>
         </div>
       </div>
