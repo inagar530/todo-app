@@ -20,6 +20,9 @@ interface Todo {
 export type NewTodo = Omit<Todo, "id" | "completed" | "createdAt">;
 export function useTodos() {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [filter, setFilter] = useState<
+    "all" | "completed" | "active" | "overdue"
+  >("all");
 
   // Load from localStroage
   useEffect(() => {
@@ -48,8 +51,62 @@ export function useTodos() {
       },
     ]);
   };
+
+  // Update todo
+  const updateTodo = (id: number, updates: Partial<Todo>) => {
+    setTodos((prev) =>
+      prev.map((todo) => (todo.id === id ? { ...todo, ...updates } : todo))
+    );
+  };
+
+  // delete Todo
+  const deleteTodo = (id: number) => {
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+  };
+
+  // Delete completed todo
+  const deleteCompleted = () => {
+    setTodos((prev) => prev.filter((todo) => !todo.completed));
+  };
+
+  // Toggle Todo
+  const toggleTodo = (id: number) => {
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
+
+  // Toggle all todo
+  const toggleAll = () => {
+    const allCompleted = todos.every((todo) => todo.completed);
+    setTodos((prev) =>
+      prev.map((todo) => ({ ...todo, completed: !allCompleted }))
+    );
+  };
+
+  const filteredTodo = todos.filter((todo) => {
+    if (filter === "active") return !todo.completed;
+    if (filter === "completed") return todo.completed;
+    if (filter === "overdue") {
+      return (
+        todo.dueDate && new Date(todo.dueDate) < new Date() && !todo.completed
+      );
+    }
+    return true;
+  });
+
   return {
-    todos,
+    todos: filteredTodo,
+    allTodos: todos,
     addtodo,
+    filter,
+    setFilter,
+    updateTodo,
+    deleteTodo,
+    deleteCompleted,
+    toggleTodo,
+    toggleAll,
   };
 }
