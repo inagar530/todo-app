@@ -7,6 +7,10 @@ export function useTodos() {
   const [filter, setFilter] = useState<
     "all" | "completed" | "active" | "overdue"
   >("all");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState<"created" | "priority" | "dueDate">(
+    "created"
+  );
 
   // Load from localStroage
   useEffect(() => {
@@ -70,23 +74,50 @@ export function useTodos() {
     );
   };
 
-  const filteredTodo = todos.filter((todo) => {
-    if (filter === "active") return !todo.completed;
-    if (filter === "completed") return todo.completed;
-    if (filter === "overdue") {
-      return (
-        todo.dueDate && new Date(todo.dueDate) < new Date() && !todo.completed
-      );
-    }
-    return true;
-  });
+  const filteredTodo = todos
+    .filter((todo) => {
+      if (filter === "active") return !todo.completed;
+      if (filter === "completed") return todo.completed;
+      if (filter === "overdue") {
+        return (
+          todo.dueDate && new Date(todo.dueDate) < new Date() && !todo.completed
+        );
+      }
+      return true;
+    })
+    .filter(
+      (todo) =>
+        todo.text.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        todo.category.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortBy === "priority") {
+        const priorityOrder: Record<Todo["priority"], number> = {
+          high: 3,
+          medium: 2,
+          low: 1,
+        };
+        return priorityOrder[b.priority] - priorityOrder[a.priority];
+      }
+      if (sortBy === "dueDate") {
+        if (!a.dueDate && !b.dueDate) return 0;
+        if (!a.dueDate) return 1;
+        if (!b.dueDate) return -1;
+        return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
+      }
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
 
   return {
     todos: filteredTodo,
     allTodos: todos,
     addtodo,
     filter,
+    searchTerm,
+    setSearchTerm,
     setFilter,
+    sortBy,
+    setSortBy,
     updateTodo,
     deleteTodo,
     deleteCompleted,
