@@ -1,21 +1,5 @@
 import { useEffect, useState } from "react";
-
-interface Todo {
-  id: number;
-  text: string;
-  completed: boolean;
-  priority: "low" | "medium" | "high";
-  category:
-    | "general"
-    | "work"
-    | "personal"
-    | "shopping"
-    | "health"
-    | "learning";
-  dueDate: number | null;
-  createdAt: string;
-  notes: string | "";
-}
+import { Todo } from "../types/types";
 
 export type NewTodo = Omit<Todo, "id" | "completed" | "createdAt">;
 export function useTodos() {
