@@ -1,46 +1,62 @@
-# Getting Started with Create React App
+## 📝 Todo App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, feature-rich Todo application built with React + TypeScript, designed to help you stay productive and organized. This app includes powerful task management features, clean UI, and persistent storage using localStorage.
 
-## Available Scripts
+## ✨ Features
 
-In the project directory, you can run:
+✅ Add, Edit, Delete Todos – Easily manage your daily tasks.
+🔄 Mark as Complete/Incomplete – Toggle task status with one click.
+📅 Due Dates – Add deadlines to keep track of time-sensitive tasks.
+⚡ Priority Levels – Categorize tasks as High, Medium, or Low priority.
+📂 Categories – Organize tasks under General, Work, Personal, Shopping, Health, or Learning.
+📝 Notes Support – Add additional details to each todo.
+🔍 Search & Filter – Quickly find tasks by keyword.
+📊 Sort Options – Sort todos by date created, priority, or due date.
+✨ Bulk Actions – Toggle all todos or clear completed ones.
+💾 Local Storage Persistence – Your todos stay saved even after refreshing the page.
+🎨 Beautiful UI – Smooth animations, modern design, and responsive layout.
 
-### `npm start`
+## 🚀 Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+⚛️ React (with Hooks & Context)
+🔷 TypeScript for type safety
+🎨 Tailwind CSS for styling
+🗄️ localStorage for data persistence
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+## 📂 Project Structure
+src/
+├── components/
+│   ├── TodoForm.tsx       # Add new todos
+│   ├── TodoList.tsx       # Display todos
+│   ├── TodoItem.tsx       # Individual todo card
+│   ├── TodoControls.tsx   # Search, sort, bulk actions
+│
+├── hooks/
+│   ├── useTodo.ts         # Custom hook for todo logic
+│
+├── types/
+│   ├── todo.d.ts          # TypeScript types
+│
+├── App.tsx                # Main app entry
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## ⚙️ Installation & Usage :-
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Clone the repo
+git clone https://github.com/your-username/todo-app.git
+cd todo-app
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Install dependencies
+npm install
 
-### `npm run eject`
+## Run the app
+npm run dev
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Open in browser
+http://localhost:5173
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 👨‍💻 Author
+Developed with ❤️ by Ishan Nagar
