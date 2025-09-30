@@ -10,12 +10,12 @@ interface FormData {
     | "shopping"
     | "health"
     | "learning";
-  dueDate: string | number;
+  dueDate?: string | null;
   notes: string | number;
 }
 
 interface TodoFormProps {
-    onAdd:(data:FormData) => void
+  onAdd: (data: FormData) => void;
 }
 
 export default function TodoForm({ onAdd }: TodoFormProps) {
@@ -33,7 +33,7 @@ export default function TodoForm({ onAdd }: TodoFormProps) {
     e.preventDefault();
     if (formData.text.trim()) {
       setIsAnimating(true);
-      onAdd(formData)
+      onAdd(formData);
       setFormData({
         text: "",
         priority: "medium",
@@ -172,6 +172,4 @@ export default function TodoForm({ onAdd }: TodoFormProps) {
       </form>
     </>
   );
-};
-
-
+}

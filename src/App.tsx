@@ -3,8 +3,24 @@ import TodoForm from "./components/Todo-Form/TodoForm";
 import { useTodos } from "./hooks/useTodo";
 import TodoList from "./components/Todo-List/TodoList";
 import { Todo } from "./types/types";
+import TodoControls from "./components/Todo-Controls/TodoControls";
 const App: React.FC = () => {
-  const { addtodo, allTodos, filter, setFilter,todos,deleteTodo , toggleTodo,updateTodo } = useTodos();
+  const {
+    addTodo,
+    allTodos,
+    filter,
+    setFilter,
+    todos,
+    deleteTodo,
+    toggleTodo,
+    updateTodo,
+    searchTerm,
+    setSearchTerm,
+    sortBy,
+    setSortBy,
+    deleteCompleted,
+    toggleAll,
+  } = useTodos();
 
   // Filter
   const filters: { key: string; label: string; count: number; icon: string }[] =
@@ -39,7 +55,10 @@ const App: React.FC = () => {
         icon: "⚠️",
       },
     ];
-
+  const completedCount = allTodos.filter((t) => t.completed).length;
+  const totalTasks = allTodos.length;
+  const progressPercentage =
+    totalTasks > 0 ? Math.round((completedCount / totalTasks) * 100) : 0;
   return (
     <div className="min-h-screen gradient-bg">
       {/* Header */}
@@ -53,13 +72,37 @@ const App: React.FC = () => {
             <p className="mb-4 text-2xl font-light text-white/80">
               Organize your life with style
             </p>
-          </div>
 
-          {/* Progress Bar */}
+            {/* Progress Bar */}
+            {totalTasks > 0 && (
+              <div className="max-w-md mx-auto">
+                <div className="flex justify-between mb-2 text-sm text-white/80">
+                  <span>Progress</span>
+                  <span>{progressPercentage}% Complete</span>
+                </div>
+                <div className="w-full h-3 rounded-full bg-white/20">
+                  <div
+                    className="h-3 transition-all duration-500 rounded-full bg-gradient-to-r from-green-400 to-blue-500"
+                    style={{ width: `${progressPercentage}%` }}
+                  ></div>
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* Main Container */}
           <div className="p-8 shadow-2xl glass-effect rounded-3xl">
-            <TodoForm onAdd={addtodo} />
+            <TodoForm onAdd={addTodo} />
+
+            <TodoControls
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+              onDeleteCompleted={deleteCompleted}
+              onToggleAll={toggleAll}
+              completedCount={completedCount}
+            />
 
             {/* Stats & Filter */}
             <div className="flex flex-wrap justify-center gap-3 mb-8">
@@ -83,11 +126,11 @@ const App: React.FC = () => {
                 </button>
               ))}
             </div>
-            <TodoList 
-            todos={todos}
-            onToggle={toggleTodo} 
-            onDelete={deleteTodo}
-            onUpdate={updateTodo}
+            <TodoList
+              todos={todos}
+              onToggle={toggleTodo}
+              onDelete={deleteTodo}
+              onUpdate={updateTodo}
             />
           </div>
         </div>

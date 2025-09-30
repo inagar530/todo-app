@@ -24,7 +24,7 @@ export function useTodos() {
   }, [todos]);
 
   //   Add new todo
-  const addtodo = (newTodo: NewTodo) => {
+  const addTodo = (newTodo: NewTodo) => {
     setTodos((prev) => [
       ...prev,
       {
@@ -111,7 +111,7 @@ export function useTodos() {
   return {
     todos: filteredTodo,
     allTodos: todos,
-    addtodo,
+    addTodo,
     filter,
     searchTerm,
     setSearchTerm,
